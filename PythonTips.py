@@ -6,3 +6,8 @@ from math import sqrt
 #3. 使用日志输出
 import logging
 logging.debug('debug message')
+#4. 深拷贝与浅拷贝
+import pandas as pd
+data = pd.read_csv("E:\\论文工作区\\DataOpen\\DailyFileAll\\DailyFile_1996_2022.csv")
+data2 = data.copy() # 深拷贝,两个变量指向不同对象,修改data2不会影响data
+data3 = data # 浅拷贝，两个变量指向相同对象，修改data3会影响data
