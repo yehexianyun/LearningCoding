@@ -11,3 +11,6 @@ import pandas as pd
 data = pd.read_csv("E:\\论文工作区\\DataOpen\\DailyFileAll\\DailyFile_1996_2022.csv")
 data2 = data.copy() # 深拷贝,两个变量指向不同对象,修改data2不会影响data
 data3 = data # 浅拷贝，两个变量指向相同对象，修改data3会影响data
+#5. 计数器变量
+for i ,item in enumerate(list):
+    print(i,item)
