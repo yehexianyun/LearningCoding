@@ -50,3 +50,6 @@ use "D:\Program Files\Stata17\auto.dta" if foreign==1 //打开符合条件的数
 replace lnx1 =0 if missing(lnx1) //填充缺失值为 0
 **# 尾部处理
 winsor2 varlist [if] [in], [suffix(string) replace trim cuts(# #) by(groupvar) label]
+**# 结果导出命令
+est store m
+reg2docx m using "outcome.docx", replace
