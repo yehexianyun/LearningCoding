@@ -53,3 +53,9 @@ winsor2 varlist [if] [in], [suffix(string) replace trim cuts(# #) by(groupvar) l
 **# 结果导出命令
 est store m
 reg2docx m using "outcome.docx", replace
+**# 循环格式
+global varlist "var1 var2 var3" //定义全局变量，要循环的内容
+foreach var of global varlist {
+    reg `var' x1 x2 x3 //循环内容
+    est store `var'
+}
