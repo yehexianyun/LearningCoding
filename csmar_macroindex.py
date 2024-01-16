@@ -1,6 +1,7 @@
 import pandas as pd
 import jieba
-data = pd.read_excel("C:\\Users\\xianyun yehe\\Downloads\\管理层信息披露情感分析170432354(仅供浙江财经大学使用)\\BDT_MDAEmotAnal.xlsx")
+jieba.load_userdict('E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\用户词表2.txt')
+data = pd.read_excel("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\2022.xlsx")
 #将Enddate列转换为日期格式
 data['Enddate'] = pd.to_datetime(data['Enddate'])
 #提取年份
@@ -9,7 +10,7 @@ data['year'] = data['Enddate'].dt.year
 data['month'] = data['Enddate'].dt.month
 #只保留月份为12的行
 data = data[data['month'] == 12]
-with open("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\宏观词汇表2.txt",'r',encoding='utf-8') as f:
+with open("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\宏观经济感知词表.txt",'r',encoding='utf-8') as f:
     macro_word = f.read()
     macro_word_list = macro_word.split('\n')
 with open("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\积极词汇.txt",'r',encoding='utf-8') as f:
@@ -30,11 +31,11 @@ data['MacroSense'] = 0
 for i in range(1,len(data)):
     #提取每一行的ManaDiscAnal列
     text = data['ManaDiscAnal'][i]
-    #将text中的换行符替换为空格
+
     macro_index_list = list()
     text = text.replace('\n', '')
     text_list = text.split('。')
-    macro_sense = list(range(len(text_list)))
+    macro_sense = list(range(len(text_list))) #初始化宏观指数
     for j in range(len(text_list)):
         word_list = jieba.lcut(text_list[j])
         x = 0
