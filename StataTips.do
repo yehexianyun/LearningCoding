@@ -59,3 +59,4 @@ foreach var of $varlist {
     reg `var' x1 x2 x3 //循环内容
     est store `var'
 }
+**# 关于egen
