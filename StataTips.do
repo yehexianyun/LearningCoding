@@ -59,4 +59,16 @@ foreach var of $varlist {
     reg `var' x1 x2 x3 //循环内容
     est store `var'
 }
+forvalues i = 1/10 {
+    reg y x1 x2 x3 if id == `i' //循环内容
+    est store `i'
+}
+**# 字符序列与数值序列同时循环
+replace a = 1 //以变量为计数器
+replace code =.
+foreach i in $y{
+	local b = a[1]  //循环体内设定计数器
+	replace code = `b' if id == "`i'"
+	replace a = a + 1 //循环体内更新计数器
+}
 **# 关于egen
