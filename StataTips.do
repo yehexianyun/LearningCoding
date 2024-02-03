@@ -72,4 +72,20 @@ foreach i in $y{
 	replace code = `b' if id == "`i'"
 	replace a = a + 1 //循环体内更新计数器
 }
+
 **# 关于egen
+
+
+**# Stata绘图
+**#1. 字体设定
+local zh1 `"fontface "宋体":"'     // 中文字体 1
+local zh2 `"fontface "黑体":"'     // 中文字体 2
+local en1 `"fontface "times": "'   // 英文和数字字体 
+local en2 `"fontface "courier new": "'   // 英文和数字字体 
+
+sysuse "auto.dta", clear
+twoway scatter price wei , ///
+       ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///
+       xtitle(`"{`zh2' 重量 (磅)}{`en2' (Weight)}"')
+graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace
+
