@@ -1,7 +1,7 @@
 import pandas as pd
 import jieba
-jieba.load_userdict('E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\用户词表2.txt')
-data = pd.read_excel("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\2022.xlsx")
+jieba.load_userdict('D:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\用户词表3.txt')
+data = pd.read_excel("D:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\2022.xlsx")
 #将Enddate列转换为日期格式
 data['Enddate'] = pd.to_datetime(data['Enddate'])
 #提取年份
@@ -10,14 +10,14 @@ data['year'] = data['Enddate'].dt.year
 data['month'] = data['Enddate'].dt.month
 #只保留月份为12的行
 data = data[data['month'] == 12]
-with open("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\宏观经济感知词表.txt",'r',encoding='utf-8') as f:
+with open("D:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\手动扩充词表.txt",'r',encoding='utf-8') as f:
     macro_word = f.read()
     macro_word_list = macro_word.split('\n')
-with open("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\积极词汇.txt",'r',encoding='utf-8') as f:
+with open("D:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\积极词汇.txt",'r',encoding='utf-8') as f:
     pos_word = f.read()
     pos_word_list = pos_word.split('\n')
 
-with open("E:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\消极词汇.txt",'r',encoding='utf-8') as f:
+with open("D:\\论文工作区\\MacroCognition\\CMDA_管理层讨论与分析_ALL\\消极词汇.txt",'r',encoding='utf-8') as f:
     neg_word = f.read()
     neg_word_list = neg_word.split('\n')
 #重建索引
@@ -64,4 +64,4 @@ for i in range(1,len(data)):
 
 #删除ManaDiscAnal列
 data = data.drop(['ManaDiscAnal'],axis = 1)
-data.to_csv("E:\\论文工作区\\MacroCognition\\data.csv",encoding = 'gbk')
+data.to_csv("D:\\论文工作区\\MacroCognition\\data.csv",encoding = 'gbk')
