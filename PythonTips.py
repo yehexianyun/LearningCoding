@@ -14,3 +14,7 @@ data3 = data # 浅拷贝，两个变量指向相同对象，修改data3会影响
 #5. 计数器变量
 for i ,item in enumerate(list):
     print(i,item)
+
+#6. feather文件的读取
+import feather
+df = feather.read_dataframe("E:\\论文工作区\\DataOpen\\DailyFileAll\\DailyFile_1996_2022.feather")
