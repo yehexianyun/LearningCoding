@@ -27,6 +27,15 @@ data.sort_values(['股票代码_Stkcd', '日期_Date'], inplace=True)
 data['MA60'] = data.groupby('股票代码_Stkcd')['收盘价_Clpr'].transform(lambda x: talib.MA(x, 60))
 # 按照股票代码_Stkcd分组计算MA60的变化率
 data['MA60_pct_change'] = data.groupby('股票代码_Stkcd')['MA60'].pct_change(fill_method=None)
+data['MA60up'] = data['MA60_pct_change'] > 0
+#计算成交量增长率
+data['VOL_pct_change'] = data.groupby('股票代码_Stkcd')['成交量_Trdvol'].pct_change(fill_method=None)
+data['VOLup'] = data['VOL_pct_change'] > 0
+#定义放量上涨
+data['Up'] = data['Updown']  & data['VOLup']
+#定义缩量下跌
+data['Down'] = ~data['Updown'] & ~data['VOLup']
 
+# %%策略
 
-# %%
+#%%测试
