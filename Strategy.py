@@ -37,5 +37,8 @@ data['Up'] = data['Updown']  & data['VOLup']
 data['Down'] = ~data['Updown'] & ~data['VOLup']
 
 # %%策略
+#股票池
+pool = data['股票代码_Stkcd'].unique().tolist()
+#
 
 #%%测试
