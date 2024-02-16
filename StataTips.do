@@ -61,8 +61,10 @@ foreach var of $varlist {
 }
 forvalues i = 1/10 {
     reg y x1 x2 x3 if id == `i' //循环内容
-    est store `i'
+    est store m`i'
 }
+**# 文件循环
+
 **# 字符序列与数值序列同时循环
 global y 安徽	北京	福建	甘肃	广东	广西	贵州	海南	河北	河南	黑龙江	湖北	湖南	吉林	江苏	江西	辽宁	内蒙古	宁夏	青海	山东	山西	陕西	上海	四川	天津	新疆	云南	浙江	重庆
 replace a = 1 //以变量为计数器
@@ -88,4 +90,5 @@ twoway scatter price wei , ///
        ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///
        xtitle(`"{`zh2' 重量 (磅)}{`en2' (Weight)}"')
 graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace
+
 
