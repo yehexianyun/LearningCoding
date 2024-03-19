@@ -1,7 +1,7 @@
 **# stata框架集
 // 设置参数
 global github "https://raw.githubusercontent.com/zhangdashenqi"
-webuse set "${github}/the_zen_of_stata/master/data"
+webuse set "${github}/the_zen_of_stata/master/data" 
 
 // 载入股票数据
 webuse stock.dta, clear
@@ -89,6 +89,12 @@ sysuse "auto.dta", clear
 twoway scatter price wei , ///
        ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///
        xtitle(`"{`zh2' 重量 (磅)}{`en2' (Weight)}"')
-graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace
+graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace 
 
+**# Stata日期处理
+//对于日期变量date
+gen ym=mofd(date) //如果变成月度数据
+gen ym=yofd(date) //如果变成年度数据
+gen yq=qofd(date) //如果变成季度数据
 
+collapse (mean) gpa hour, by(year) //分组求和 
