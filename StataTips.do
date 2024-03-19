@@ -71,7 +71,7 @@ replace a = 1 //以变量为计数器
 replace code =.
 foreach i in $y{
 	local b = a[1]  //循环体内设定计数器
-	replace code = `b' if id == "`i'"
+	replace code = `b' if id == "`i'"  //注意此处需要手动添加双引号变为字符串
 	replace a = a + 1 //循环体内更新计数器
 }
 
