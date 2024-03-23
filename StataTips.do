@@ -21,7 +21,7 @@ logout,save ("$Out\Table1 sum")word replace: tabstat price wei len mpg turn fore
 tab year,gen(year)//生成年份虚拟变量
 //如何将日期格式数据提取为年月日三个数据
 gen new_year = year(date) //提取为年份
-gen new_month = month(date) //提取为月份
+gen new_month = month(date) //提取为月份 
 gen new_date = day(date) //提取为日期
 //如何将年份与月份合并为年月
 gen year_month = ym(new_year,new_month) //合并年月变量
@@ -76,7 +76,41 @@ foreach i in $y{
 }
 
 **# 关于egen
+* 20220412---stata基础：产生新变量gen与egen
+input id year x
+1 2018 1
+1 2019 1
+1 2020 1
+2 2018 2
+2 2019 2
+2 2020 2
+3 2018 3
+3 2019 3
+3 2020 3
+end
 
+egen num = count(x) //计数
+egen xgroup = group(id year) //组合
+gen xgroup2 =_n //与上一行命令等价，_n 是内部序号，不可见
+gen num2 = count(x) //报错，因为应该用egen
+egen xmax = max(x)
+egen xmin = min(x)
+egen xmean = mean(x)
+egen xmedian = median(x)
+egen xsd = sd(x) 
+//求标准差[(1-2)^2*3+0+(3-2)^2*3]/(9-1)，再开根号
+gen xsd2 = (6/8)^(0.5) 
+egen x50 = pctile(x),p(50) //求二分位数
+egen x25 = pctile(x),p(25) //求四分位数
+//求分位数，该分位数对应概率为p
+egen xtotal =total(x)
+gen hong = xmax + xmin //相当于2个矩阵相加
+gen hong2 = x + xmin
+gen hong3 = "wisteria" //新建一个变量，且这个变量所有的观测值都为字符串
+/*
+如果表里已有观测值，直接 gen var1 = "wisteria"
+啥都没有，要先确定观测值数量，比如 set obs 10；然后再gen var1 = "Italy"
+*/
 
 **# Stata绘图
 **#1. 字体设定
