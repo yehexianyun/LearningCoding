@@ -1,7 +1,7 @@
 **# stata框架集
 // 设置参数
 global github "https://raw.githubusercontent.com/zhangdashenqi"
-webuse set "${github}/the_zen_of_stata/master/data"
+webuse set "${github}/the_zen_of_stata/master/data" 
 
 // 载入股票数据
 webuse stock.dta, clear
@@ -21,7 +21,7 @@ logout,save ("$Out\Table1 sum")word replace: tabstat price wei len mpg turn fore
 tab year,gen(year)//生成年份虚拟变量
 //如何将日期格式数据提取为年月日三个数据
 gen new_year = year(date) //提取为年份
-gen new_month = month(date) //提取为月份
+gen new_month = month(date) //提取为月份 
 gen new_date = day(date) //提取为日期
 //如何将年份与月份合并为年月
 gen year_month = ym(new_year,new_month) //合并年月变量
@@ -59,4 +59,76 @@ foreach var of $varlist {
     reg `var' x1 x2 x3 //循环内容
     est store `var'
 }
+forvalues i = 1/10 {
+    reg y x1 x2 x3 if id == `i' //循环内容
+    est store m`i'
+}
+**# 文件循环
+
+**# 字符序列与数值序列同时循环
+global y 安徽	北京	福建	甘肃	广东	广西	贵州	海南	河北	河南	黑龙江	湖北	湖南	吉林	江苏	江西	辽宁	内蒙古	宁夏	青海	山东	山西	陕西	上海	四川	天津	新疆	云南	浙江	重庆
+replace a = 1 //以变量为计数器
+replace code =.
+foreach i in $y{
+	local b = a[1]  //循环体内设定计数器
+	replace code = `b' if id == "`i'"  //注意此处需要手动添加双引号变为字符串
+	replace a = a + 1 //循环体内更新计数器
+}
+
 **# 关于egen
+* 20220412---stata基础：产生新变量gen与egen
+input id year x
+1 2018 1
+1 2019 1
+1 2020 1
+2 2018 2
+2 2019 2
+2 2020 2
+3 2018 3
+3 2019 3
+3 2020 3
+end
+
+egen num = count(x) //计数
+egen xgroup = group(id year) //组合
+gen xgroup2 =_n //与上一行命令等价，_n 是内部序号，不可见
+gen num2 = count(x) //报错，因为应该用egen
+egen xmax = max(x)
+egen xmin = min(x)
+egen xmean = mean(x)
+egen xmedian = median(x)
+egen xsd = sd(x) 
+//求标准差[(1-2)^2*3+0+(3-2)^2*3]/(9-1)，再开根号
+gen xsd2 = (6/8)^(0.5) 
+egen x50 = pctile(x),p(50) //求二分位数
+egen x25 = pctile(x),p(25) //求四分位数
+//求分位数，该分位数对应概率为p
+egen xtotal =total(x)
+gen hong = xmax + xmin //相当于2个矩阵相加
+gen hong2 = x + xmin
+gen hong3 = "wisteria" //新建一个变量，且这个变量所有的观测值都为字符串
+/*
+如果表里已有观测值，直接 gen var1 = "wisteria"
+啥都没有，要先确定观测值数量，比如 set obs 10；然后再gen var1 = "Italy"
+*/
+
+**# Stata绘图
+**#1. 字体设定
+local zh1 `"fontface "宋体":"'     // 中文字体 1
+local zh2 `"fontface "黑体":"'     // 中文字体 2
+local en1 `"fontface "times": "'   // 英文和数字字体 
+local en2 `"fontface "courier new": "'   // 英文和数字字体 
+
+sysuse "auto.dta", clear
+twoway scatter price wei , ///
+       ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///
+       xtitle(`"{`zh2' 重量 (磅)}{`en2' (Weight)}"')
+graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace 
+
+**# Stata日期处理
+//对于日期变量date
+gen ym=mofd(date) //如果变成月度数据
+gen ym=yofd(date) //如果变成年度数据
+gen yq=qofd(date) //如果变成季度数据
+
+collapse (mean) gpa hour, by(year) //分组求和 

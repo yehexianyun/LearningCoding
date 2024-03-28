@@ -5,4 +5,5 @@
 ## Stata
 ### 数据导出
 使用reg2docx和lxhreg导出回归结果
+### egen的使用
 ### 框架集
