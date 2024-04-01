@@ -1,10 +1,13 @@
+**# 基本编辑
+edit var1 var2//仅编辑var1 var2变量
+//contract命令将Stata数据集简化为多个变量；以及它们的频率。
 **# stata框架集
 // 设置参数
-global github "https://raw.githubusercontent.com/zhangdashenqi"
+global github "https://raw.githubusercontent.com/zhangdashenqi" 
 webuse set "${github}/the_zen_of_stata/master/data" 
 
 // 载入股票数据
-webuse stock.dta, clear
+webuse stock.dta, clear 
 frame create 账面价值 //创建一个名为账面价值的数据框；
 frame 账面价值: webuse bookValue.dta, clear //指定在账面价值数据框中执行webuse bookValue.dta, clear命令，用于载入bookValues.dta数据集。
 frame dir   // 查询内存中的所有数据框
