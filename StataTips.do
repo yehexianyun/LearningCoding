@@ -62,7 +62,7 @@ foreach var of $varlist {
     reg `var' x1 x2 x3 //循环内容
     est store `var'
 }
-forvalues i = 1/10 {
+forvalues i = 1/10 {  
     reg y x1 x2 x3 if id == `i' //循环内容
     est store m`i'
 }
@@ -140,6 +140,6 @@ collapse (mean) gpa hour, by(year) //分组求和 
 sum2docx [varlist] using d:/mytable.docx, replace stats(N mean(%6.2f) sd min(%6.0g) median(%6.0g) max(%6.0g)) title("The Summary Statistics") 
 
 **# 新命令
-//采用 labone 命令可以方便快捷地设定变量标签名为指定行的观测值内容。
+labone,nrow(1)//采用 labone 命令可以方便快捷地设定变量标签名为指定行的观测值内容。
 //采用 nrow 命令可以将指定行的变量观测值命名为变量名
 net install sgmediation2, from("https://tdmize.github.io/data/sgmediation2")//安装新的中介效应检验sgmediation2
