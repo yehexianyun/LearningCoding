@@ -124,7 +124,7 @@ local en2 `"fontface "courier new": "'   // 英文和数字字体
 
 sysuse "auto.dta", clear
 twoway scatter price wei , ///
-       ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///
+       ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///  
        xtitle(`"{`zh2' 重量 (磅)}{`en2' (Weight)}"')
 graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace 
 
@@ -142,3 +142,4 @@ sum2docx [varlist] using d:/mytable.docx, replace stats(N mean(%6.2f) sd min(%6.
 **# 新命令
 //采用 labone 命令可以方便快捷地设定变量标签名为指定行的观测值内容。
 //采用 nrow 命令可以将指定行的变量观测值命名为变量名
+net install sgmediation2, from("https://tdmize.github.io/data/sgmediation2")//安装新的中介效应检验sgmediation2
