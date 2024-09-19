@@ -134,7 +134,9 @@ gen ym=mofd(date) //如果变成月度数据
 gen ym=yofd(date) //如果变成年度数据
 gen yq=qofd(date) //如果变成季度数据
 
-collapse (mean) gpa hour, by(year) //分组求和 
+
+gen week = dow(date) //使用日期数据计算星期几
+collapse (mean) gpa hour, by(year) //分组求和   
 
 **# 导出各种表格
 sum2docx [varlist] using d:/mytable.docx, replace stats(N mean(%6.2f) sd min(%6.0g) median(%6.0g) max(%6.0g)) title("The Summary Statistics") 
