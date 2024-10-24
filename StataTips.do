@@ -7,7 +7,7 @@ global github "https://raw.githubusercontent.com/zhangdashenqi" 
 webuse set "${github}/the_zen_of_stata/master/data" 
 
 // 载入股票数据
-webuse stock.dta, clear 
+webuse stock.dta, clear   
 frame create 账面价值 //创建一个名为账面价值的数据框；
 frame 账面价值: webuse bookValue.dta, clear //指定在账面价值数据框中执行webuse bookValue.dta, clear命令，用于载入bookValues.dta数据集。
 frame dir   // 查询内存中的所有数据框
@@ -64,9 +64,23 @@ foreach var of $varlist {
 }
 forvalues i = 1/10 {  
     reg y x1 x2 x3 if id == `i' //循环内容
-    est store m`i'
+    est store m`i'  
 }
 **# 文件循环
+* 遍历文件，导入文件并保存到相应目录
+filelist, list pattern("*.xlsx") dir("G:\test") save(FileList.dta) replace //第三方命令filelist 
+use mydata.dta, clear 
+local obs = _N //设定循环范围
+forvalues i=1/`obs'{
+    use mydata.dta in `i', clear      //导入数据mydata第`i'行
+    gen f = dirname + "\" + filename
+    local file = f[1]
+    gen name = subinstr(filename,".xlsx","",1) //生成文件名称
+    local tempdirname = dirname[1]
+    local tempfilename = name[1]
+    import excel using "`file'" , firstrow clear
+    save `tempfilename'.dta,replace
+}
 
 **# 字符序列与数值序列同时循环
 global y 安徽	北京	福建	甘肃	广东	广西	贵州	海南	河北	河南	黑龙江	湖北	湖南	吉林	江苏	江西	辽宁	内蒙古	宁夏	青海	山东	山西	陕西	上海	四川	天津	新疆	云南	浙江	重庆
