@@ -34,7 +34,7 @@ generate date1 = date(date, "YMD")
 gen date2 = date1
 format date2 %td
 //如何对文本进行筛选
-keep if strmatch(variable, "*string*")
+keep if strmatch(variable, "*string*")  
 //字符转换成数值格式
 destring variable, replace force
 destring variable, gen(new_variable) ignore("*") //在转换为数值型变量时，忽略*符号
@@ -138,7 +138,7 @@ local en2 `"fontface "courier new": "'   // 英文和数字字体
 
 sysuse "auto.dta", clear
 twoway scatter price wei , ///
-       ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///  
+       ytitle(`"{`zh1' 汽车价格}{ `en1' (Price)}"') ///    
        xtitle(`"{`zh2' 重量 (磅)}{`en2' (Weight)}"')
 graph export "Stata_Fig_diff_FontFace_02.png", width(700) replace 
 
@@ -159,3 +159,14 @@ sum2docx [varlist] using d:/mytable.docx, replace stats(N mean(%6.2f) sd min(%6.
 labone,nrow(1)//采用 labone 命令可以方便快捷地设定变量标签名为指定行的观测值内容。
 //采用 nrow 命令可以将指定行的变量观测值命名为变量名
 net install sgmediation2, from("https://tdmize.github.io/data/sgmediation2")//安装新的中介效应检验sgmediation2
+
+
+
+**# 奇怪的片段
+//设定一个随机的虚拟变量值。
+clear
+set obs 1000  //设定观测数
+gen x=(_n<=500)  //通过条件判断设定值
+gen order=rnormal() //生成随机数
+sort order // 根据随机数排序
+drop order
