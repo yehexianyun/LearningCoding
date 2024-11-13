@@ -6,7 +6,7 @@
 
 ### Reference
 
-
+[The Stata Guide](https://medium.com/the-stata-guide)
 
 ## Python
 
