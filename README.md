@@ -5,8 +5,7 @@
 * lianxh_stata101文件来自连享会的入门技巧分享
 
 ### Reference
-
-[The Stata Guide](https://medium.com/the-stata-guide)
+* [The Stata Guide](https://medium.com/the-stata-guide)
 
 ## Python
 
