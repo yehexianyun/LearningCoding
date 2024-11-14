@@ -6,6 +6,7 @@
 
 ### Reference
 * [The Stata Guide](https://medium.com/the-stata-guide)
+* [连享会](www.lianxh.cn)
 
 ## Python
 
