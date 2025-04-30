@@ -23,7 +23,7 @@ logout,save ("$Out\Table1 sum")word replace: tabstat price wei len mpg turn fore
 **# 数据处理小技巧
 tab year,gen(year)//生成年份虚拟变量
 //如何将日期格式数据提取为年月日三个数据
-gen new_year = year(date) //提取为年份
+gen new_year = year(date) //提取为年份  
 gen new_month = month(date) //提取为月份 
 gen new_date = day(date) //提取为日期
 //如何将年份与月份合并为年月
@@ -31,12 +31,13 @@ gen year_month = ym(new_year,new_month) //合并年月变量
 format year_month %tm //修改数据格式为年月
 **# 如何将文本格式的日期转换为日期格式
 generate date1 = date(date, "YMD")
+gen date_tm = monthly(date_str, "YM")
 gen date2 = date1
 format date2 %td
 //如何对文本进行筛选
 keep if strmatch(variable, "*string*")  
 //字符转换成数值格式
-destring variable, replace force
+destring variable, replace force  
 destring variable, gen(new_variable) ignore("*") //在转换为数值型变量时，忽略*符号
 //Stata简单统计量
 ameans x //计算变量x的算术平均值、几何平均值和简单调和平均值，均显示样本量和置信区间
